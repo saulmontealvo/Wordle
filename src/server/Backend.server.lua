@@ -22,6 +22,21 @@ local function updateWord()
     print(typeof(randomWord))
     warn("Your new word:",randomWord)
     WordData:SetAsync("WORD",tostring(randomWord))
+    TodayWordle = randomWord
+end
+local function VerifyWord(Word)
+	local url = "https://api.dictionaryapi.dev/api/v2/entries/en/"..Word
+	local success,errormessage = pcall(function()
+		local response = http:GetAsync(url)
+	end)
+	if success then
+		
+		return true
+	else
+		
+		return false
+	end
+	
 end
 -- Check when the server innit on a game
 local LastWordle = Data:GetAsync("DOG")
@@ -63,6 +78,8 @@ end)
 task.wait(3)
 coroutine.resume(updateFunction)
 
-SendData.OnServerInvoke = function(player,data)
-    
+SendData.OnServerInvoke = function(player:Player,index:number,letter:string)
+    for i,v in pairs(string.split(TodayWordle,"")) do
+        print(i,v)
+    end
 end

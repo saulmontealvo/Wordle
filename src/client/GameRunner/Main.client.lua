@@ -59,6 +59,7 @@ local function submit(row,text)
   local Test5
    for index,value in pairs(string.split(text,"")) do
       print(index,value)
+      game.ReplicatedStorage.SentData:InvokeServer(index,value)
    end
 end
 
